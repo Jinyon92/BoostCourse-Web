@@ -6,7 +6,7 @@ import kr.or.connect.boostcourse.dto.Product;
 
 public interface ProductService {
 	public static final Integer LIMIT = 4;
-	public List<Product> getProducts(Integer start);
-	public List<Product> getProductsByCategory(Integer categoryId, Integer start);
-	public int getCount();
+	List<Product> getProducts(Integer start);
+	List<Product> getProductsByCategory(Integer categoryId, Integer start);
+	int getCount();
 }

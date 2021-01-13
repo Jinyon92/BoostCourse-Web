@@ -25,7 +25,6 @@ public class CategoryDao {
 		jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 	
-	//카테고리 조회
 	public List<Category> selectAll(){
 		return jdbc.query(SELECT_CATEGORY, new RowMapper<Category>() {
 			@Override

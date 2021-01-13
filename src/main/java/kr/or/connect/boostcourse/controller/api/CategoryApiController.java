@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.or.connect.boostcourse.dto.Category;
@@ -18,7 +18,7 @@ public class CategoryApiController {
 	@Autowired
 	CategoryService categoryService;
 	
-	@RequestMapping(value = "/categories", method = RequestMethod.GET)
+	@GetMapping("/categories")
 	public Map<String, Object> categories() {
 		List<Category> items = categoryService.getCategories();
 		

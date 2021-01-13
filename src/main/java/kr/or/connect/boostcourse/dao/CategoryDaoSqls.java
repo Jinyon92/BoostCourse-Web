@@ -6,7 +6,6 @@ public class CategoryDaoSqls {
 	
 	/* 카테고리별 product 갯수 */
 	public static final String SELECT_COUNT = "SELECT count(*) \n"
-			+ "FROM product p LEFT JOIN display_info di ON p.id = di.product_id\n"
-			+ "GROUP BY p.category_id\n"
-			+ "HAVING p.category_id = :category_id";
+			+ "FROM product p INNER JOIN display_info di ON p.id = di.product_id\n"
+			+ "WHERE p.category_id = :category_id";
 }

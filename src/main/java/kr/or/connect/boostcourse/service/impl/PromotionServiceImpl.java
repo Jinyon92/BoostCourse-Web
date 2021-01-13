@@ -16,7 +16,6 @@ public class PromotionServiceImpl implements PromotionService {
 	PromotionDao promotionDao;
 	
 	@Override
-	@Transactional
 	public List<Promotion> getPromotions() {
 		List<Promotion> list = promotionDao.selectAll();
 		return list;

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +25,8 @@ public class ProductApiController {
 	@Autowired
 	CategoryService categoryService;
 	
-	@RequestMapping(value = "/products", params = "start", method = RequestMethod.GET)
-	public Map<String, Object> products(@RequestParam(name = "start", required = false, defaultValue = "0")int start) {
+	@GetMapping(value="/products")
+	public Map<String, Object> products(@RequestParam(defaultValue = "0")int start) {
 		List<Product> items = productService.getProducts(start);
 		int totalCount = productService.getCount();
 		
@@ -37,8 +38,8 @@ public class ProductApiController {
 	}
 	
 	@RequestMapping(value = "/products", params = {"start", "categoryId"}, method = RequestMethod.GET)
-	public Map<String, Object> productsByCategory(@RequestParam(name="start", required = true) int start,
-			@RequestParam(name="categoryId", required = true)int categoryId) {
+	public Map<String, Object> productsByCategory(@RequestParam(name="start") int start,
+			@RequestParam(name="categoryId")int categoryId) {
 		
 		List<Product> items = productService.getProductsByCategory(categoryId, start);
 		int totalCount = categoryService.getCount(categoryId);

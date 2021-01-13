@@ -17,14 +17,12 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 	
 	@Override
-	@Transactional
 	public List<Product> getProducts(Integer start) {
 		List<Product> list = productDao.selectAll(start, ProductService.LIMIT);
 		return list;
 	}
 
 	@Override
-	@Transactional
 	public List<Product> getProductsByCategory(Integer categoryId, Integer start) {
 		List<Product> list = productDao.selectByCategory(categoryId, start, ProductService.LIMIT);
 		return list;
