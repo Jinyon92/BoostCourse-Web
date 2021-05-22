@@ -13,10 +13,12 @@ function init() {
 }
 
 function clickedBtn(btn) {
+    const addProductCount = 4;
+
     btn.addEventListener("click", () => {
-        preCount += 4;
+        preCount += addProductCount;
         sendProductApi(categoryId, true);
-        if(preCount+4 >= totalCount) {
+        if(preCount+addProductCount >= totalCount) {
             btn.style.display = "none";
         }
     })
@@ -24,41 +26,28 @@ function clickedBtn(btn) {
 
 function clickedMenu() {
     let tabMenu = document.querySelector(".event_tab_lst");
-    let btn = document.querySelector(".btn");
+    let moreBtn = document.querySelector(".btn");
 
     tabMenu.addEventListener("click", (evt) => {
         preCount = 0;
-        btn.style.display = "block";
+        moreBtn.style.display = "block";
         let tagname = evt.target.tagName;
         if(tagname === "A" || tagname === "SPAN"){
             document.querySelector(".anchor.active").classList.remove("active");
+            let dataCategoryId;
             if(tagname === "A"){
                 evt.target.classList.add("active");
+                dataCategoryId = evt.target.parentElement.getAttribute('data-category');
             } else if(tagname === "SPAN") {
                 evt.target.parentElement.classList.add("active");
+                dataCategoryId = evt.target.parentElement.parentElement.getAttribute('data-category');
             }
-            sendMenuName(evt.target.innerText);
+            categoryId = parseInt(dataCategoryId);
+            sendProductApi(categoryId, false);
         }
     });
 
-    clickedBtn(btn);
-}
-
-function sendMenuName(name) {
-    if (name === "전체리스트") {
-        categoryId = 0;
-    } else if (name === "전시") {
-        categoryId = 1;
-    } else if (name === "뮤지컬") {
-        categoryId = 2;
-    } else if (name === "콘서트") {
-        categoryId = 3;
-    } else if (name === "클래식") {
-        categoryId = 4;
-    } else if (name === "연극") {
-        categoryId = 5;
-    }
-    sendProductApi(categoryId, false);
+    clickedBtn(moreBtn);
 }
 
 function sendProductApi(categoryId, flag) {
@@ -145,13 +134,13 @@ function promotionApi() {
 
 function slideShow(img_ul, imgCnt) {
     let curIndex = 0;
-
+    const imgSize = 414;
+    
     setInterval(() => {
         img_ul.style.transition = "transform 2s ease-out";
-        img_ul.style.transform = "translate3d(-" + 414 * (curIndex + 1) + "px, 0px, 0px)";
+        img_ul.style.transform = "translate3d(-" + imgSize * (curIndex + 1) + "px, 0px, 0px)";
         curIndex++;
 
-        //console.log(curIndex);
         if (curIndex === imgCnt - 1) {
             curIndex = -1;
         }

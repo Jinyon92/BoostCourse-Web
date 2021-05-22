@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -110,7 +110,7 @@
     </div>
     <footer>
         <div class="gototop">
-            <div class="lnk_top"> <span class="lnk_top_text" onClick="javascript:window.scrollTo(0,0)">TOP</span> </div>
+            <div class="lnk_top"> <button class="lnk_top_text" onClick="javascript:window.scrollTo(0,0)">TOP</button> </div>
         </div>
         <div class="footer">
             <p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
