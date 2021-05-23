@@ -78,15 +78,18 @@ function getItemList(data, flag) {
 
     let resultHTML1 = ""
     let resultHTML2 = ""
+    console.log(data);
     for (let i = 0, len = data.items.length; i < len; i++) {
         if (i % 2 == 0) {
             resultHTML1 += productHTML
+                .replace("{id}", data.items[i].displayInfoId)
                 .replace("{description}",data.items[i].productDescription)
                 .replace("{content}", data.items[i].productContent)
                 .replace("{placeName}", data.items[i].placeName)
                 .replace("{productImageUrl}", data.items[i].productImageUrl);
         } else {
             resultHTML2 += productHTML
+                .replace("{id}", data.items[i].displayInfoId)
                 .replace("{description}",data.items[i].productDescription)
                 .replace("{content}", data.items[i].productContent)
                 .replace("{placeName}", data.items[i].placeName)

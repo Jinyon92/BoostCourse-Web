@@ -28,10 +28,13 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
     
+    /* 특정 URL에 대한 처리를 컨트롤러 클래스를 작성하지 않고 매핑할 수 있도록 해*/
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
     	System.out.println("addViewControllers가 호출됩니다. ");
         registry.addViewController("/").setViewName("mainpage");
+        registry.addViewController("/detail").setViewName("detail");
+        registry.addViewController("/myreservation").setViewName("myreservation");
     }
     
     @Bean

@@ -11,15 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.or.connect.boostcourse.service.ProductService;
 
 @Controller
-public class PageController {
+public class LoginController {
 	
 	@Autowired
 	ProductService productService;
-	
-	@GetMapping(path="/mainpage")
-	public String mainpage() {
-		return "mainpage";
-	}
 	
 	@GetMapping(path="/bookinglogin")
 	public String bookingLogin() {

@@ -133,7 +133,7 @@
 
     <script type="rv-template" id="itemList">
         <li class="item">
-            <a href="detail.html?id={id}" class="item_book">
+            <a href="./detail?id={id}" class="item_book">
                 <div class="item_preview">
                     <img class="img_thumb" src="{productImageUrl}">
                     <span class="img_border"></span>
