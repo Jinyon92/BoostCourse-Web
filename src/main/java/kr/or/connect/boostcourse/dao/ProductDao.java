@@ -16,14 +16,20 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.connect.boostcourse.dto.DisplayInfo;
+import kr.or.connect.boostcourse.dto.DisplayInfoImage;
 import kr.or.connect.boostcourse.dto.Product;
 import kr.or.connect.boostcourse.dto.ProductImages;
+import kr.or.connect.boostcourse.dto.ProductPrices;
 
 @Repository
 public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
-	private RowMapper<ProductImages> rowMapperImages = BeanPropertyRowMapper.newInstance(ProductImages.class);
+	private RowMapper<Product> rowMapperProduct = BeanPropertyRowMapper.newInstance(Product.class);
+	private RowMapper<ProductImages> rowMapperProductImages = BeanPropertyRowMapper.newInstance(ProductImages.class);
+	private RowMapper<ProductPrices> rowMapperProductPrices = BeanPropertyRowMapper.newInstance(ProductPrices.class);
+	private RowMapper<DisplayInfoImage> rowMapperDisplayInfoImage = BeanPropertyRowMapper.newInstance(DisplayInfoImage.class);
+	private RowMapper<DisplayInfo> rowMapperDisplayInfo = BeanPropertyRowMapper.newInstance(DisplayInfo.class);
 	
 	public ProductDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -34,7 +40,7 @@ public class ProductDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_ALL, params, rowMapper);
+		return jdbc.query(SELECT_ALL, params, rowMapperProduct);
 	}
 	
 	/* 카테고리별 product 조회 */
@@ -43,7 +49,7 @@ public class ProductDao {
 		params.put("category_id", categoryId);
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_BY_CATEGORY, params, rowMapper);
+		return jdbc.query(SELECT_BY_CATEGORY, params, rowMapperProduct);
 	}
 	
 	/* 전체 product 갯수 */
@@ -51,10 +57,31 @@ public class ProductDao {
 		return jdbc.queryForObject(SELECT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 	
+	/* productImages 조회 */
 	public List<ProductImages> selectProductImages(int displayInfoId){
 		Map<String, Integer> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
-		return jdbc.query(SELECT_PRODUCT_IMAGES, params, rowMapperImages);
+		return jdbc.query(SELECT_PRODUCT_IMAGES, params, rowMapperProductImages);
 	}
 	
+	/* productPrices 조회 */
+	public List<ProductPrices> selectProductPrices(int displayInfoId){
+		Map<String, Integer> params = new HashMap<>();
+		params.put("display_info_id", displayInfoId);
+		return jdbc.query(SELECT_PRODUCT_PRICES, params, rowMapperProductPrices);
+	}
+	
+	/* displayInfoImage 조회 */
+	public List<DisplayInfoImage> selectDisplayInfoImage(int displayInfoId){
+		Map<String, Integer> params = new HashMap<>();
+		params.put("display_info_id", displayInfoId);
+		return jdbc.query(SELECT_DISPLAY_INFO_IMAGE, params, rowMapperDisplayInfoImage);
+	}
+	
+	/* displayInfo 조회 */
+	public DisplayInfo selectDisplayInfo(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("display_info_id", displayInfoId);
+		return jdbc.queryForObject(SELECT_DISPLAY_INFO, params, rowMapperDisplayInfo);
+	}
 }
