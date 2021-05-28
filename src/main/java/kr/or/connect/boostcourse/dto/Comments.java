@@ -1,9 +1,11 @@
 package kr.or.connect.boostcourse.dto;
 
+import java.util.List;
+
 public class Comments {
 	private String comment;
 	private int commentId;
-	private CommentImages commentImages;
+	private List<CommentImages> commentImages;
 	private String createDate;
 	private String modifyDate;
 	private int productId;
@@ -26,10 +28,10 @@ public class Comments {
 	public void setCommentId(int commentId) {
 		this.commentId = commentId;
 	}
-	public CommentImages getCommentImages() {
+	public List<CommentImages> getCommentImages() {
 		return commentImages;
 	}
-	public void setCommentImages(CommentImages commentImages) {
+	public void setCommentImages(List<CommentImages> commentImages) {
 		this.commentImages = commentImages;
 	}
 	public String getCreateDate() {
