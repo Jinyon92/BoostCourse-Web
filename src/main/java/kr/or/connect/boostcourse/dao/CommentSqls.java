@@ -12,9 +12,9 @@ public class CommentSqls {
 			+ "FROM reservation_user_comment_image ruci INNER JOIN file_info fi ON ruci.file_id = fi.id \n"
 			+ "WHERE ruci.reservation_user_comment_id = :reservation_user_commet_id";
 	
-	public static final String AVG_SCORE = "ELECT AVG(ruc.score)\n"
+	public static final String AVG_SCORE = "SELECT AVG(ruc.score) \n"
 			+ "FROM reservation_user_comment ruc INNER JOIN product p ON p.id = ruc.product_id \n"
-			+ "								  INNER JOIN display_info di ON di.product_id = p.id\n"
+			+ "								  INNER JOIN display_info di ON di.product_id = p.id \n"
 			+ "WHERE di.id = :display_info_id \n"
-			+ "GROUP BY di.id ";
+			+ "GROUP BY di.id";
 }

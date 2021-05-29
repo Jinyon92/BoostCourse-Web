@@ -72,10 +72,10 @@ public class ProductDao {
 	}
 	
 	/* displayInfoImage 조회 */
-	public List<DisplayInfoImage> selectDisplayInfoImage(int displayInfoId){
+	public DisplayInfoImage selectDisplayInfoImage(int displayInfoId){
 		Map<String, Integer> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
-		return jdbc.query(SELECT_DISPLAY_INFO_IMAGE, params, rowMapperDisplayInfoImage);
+		return jdbc.queryForObject(SELECT_DISPLAY_INFO_IMAGE, params, rowMapperDisplayInfoImage);
 	}
 	
 	/* displayInfo 조회 */

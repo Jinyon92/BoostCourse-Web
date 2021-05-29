@@ -37,7 +37,7 @@ public class ProductDaoSqls {
 			+ "FROM display_info_image img INNER JOIN file_info fi ON img.file_id = fi.id \n"
 			+ "WHERE img.display_info_id = :display_info_id";
 	
-	public static final String SELECT_DISPLAY_INFO = "SELECT c.id AS category_id ,c.name ,di.tel AS telephone ,di.id AS display_info_id, di.*, p.content AS product_content, p.description AS product_description, p.event AS product_event, p.id AS product_id\n"
+	public static final String SELECT_DISPLAY_INFO = "SELECT c.id AS category_id ,c.name AS category_name ,di.tel AS telephone ,di.id AS display_info_id, di.*, p.content AS product_content, p.description AS product_description, p.event AS product_event, p.id AS product_id\n"
 			+ "FROM display_info di INNER JOIN product p ON di.product_id = p.id \n"
 			+ "					    INNER JOIN category c ON c.id = p.category_id \n"
 			+ "WHERE di.id = :display_info_id";
