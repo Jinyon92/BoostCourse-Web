@@ -1,6 +1,6 @@
 package kr.or.connect.boostcourse.dao;
 
-public class CommentSqls {
+public class CommentDaoSqls {
 	
 	public static final String SELECT_COMMENTS = "SELECT di.id AS display_id, ruc.comment ,ruc.id AS comment_id ,ruc.create_date ,ruc.modify_date ,ruc.product_id ,ri.reservation_date ,ri.reservation_email , ruc.reservation_info_id ,ri.reservation_name ,ri.reservation_tel AS reservation_telephone ,ruc.score \n"
 			+ "FROM reservation_user_comment ruc INNER JOIN product p ON p.id = ruc.product_id \n"

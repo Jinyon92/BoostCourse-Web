@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.connect.boostcourse.dto.CommentImages;
 import kr.or.connect.boostcourse.dto.Comments;
 
-import static kr.or.connect.boostcourse.dao.CommentSqls.*;
+import static kr.or.connect.boostcourse.dao.CommentDaoSqls.*;
 
 @Repository
 public class CommentDao {
@@ -62,11 +63,12 @@ public class CommentDao {
 	public double selectAvgScore(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
-		if(jdbc.queryForObject(AVG_SCORE, params, Double.class) == null) {
-			return 0;
-		} else {
+		
+		try {
 			return jdbc.queryForObject(AVG_SCORE, params, Double.class);
 		}
-		
+		catch(EmptyResultDataAccessException e) {
+			return 0;
+		}
 	}
 }

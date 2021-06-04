@@ -78,7 +78,6 @@ function getItemList(data, flag) {
 
     let resultHTML1 = ""
     let resultHTML2 = ""
-    console.log(data);
     for (let i = 0, len = data.items.length; i < len; i++) {
         if (i % 2 == 0) {
             resultHTML1 += productHTML

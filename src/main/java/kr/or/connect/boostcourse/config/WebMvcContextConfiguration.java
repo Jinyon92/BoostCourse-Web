@@ -22,13 +22,13 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 	
-	// default servlet handler를 사용하게 합니다.
+	/* default servlet handler를 사용하게 합니다. */
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
     
-    /* 특정 URL에 대한 처리를 컨트롤러 클래스를 작성하지 않고 매핑할 수 있도록 해*/
+    /* 특정 URL에 대한 처리를 컨트롤러 클래스를 작성하지 않고 매핑할 수 있도록 해줌*/
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
     	System.out.println("addViewControllers가 호출됩니다. ");
