@@ -29,7 +29,7 @@ let tap = {
             }
         });
     }
-}
+};
 
 let product = {
    fetchApi : function() {
@@ -39,11 +39,22 @@ let product = {
        fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
-            this.imageLoad(data.productImages, data.displayInfo);
+            this.loadImage(data.productImages, data.displayInfo);
+            this.loadComments(data.comments);
+            this.loadAvgScore(data.averageScore);
+            this.addUrlReviewMore(displayInfoId);
         })
    },
 
-   imageLoad : function(productImagesData, displayInfoData) {
+   loadAvgScore : function(avgScore) {
+       const score = avgScore.toFixed(1);
+       document.querySelector('.text_value').firstElementChild.innerText = score;
+       const starScore = score * 20;
+       document.querySelector('.graph_value').style.width = `${starScore}%`;
+   },
+
+   /* 이미지 불러오기 */
+   loadImage : function(productImagesData, displayInfoData) {
        let container = document.querySelector('.visual_img');
        document.querySelector('.num.off').firstElementChild.innerText = productImagesData.length;
        document.querySelector('.dsc').innerText = displayInfoData.productContent;
@@ -59,5 +70,45 @@ let product = {
        const imageTemplate = document.querySelector('#imageTemplate').innerText;
        const bindTemplate = Handlebars.compile(imageTemplate);
        return bindTemplate(data);
+   },
+
+   addUrlReviewMore : function(displayInfoId){
+       const reviewMore = document.querySelector('.btn_review_more');
+       reviewMore.href = `review?id=${displayInfoId}`;
+   },
+
+   /* 예매자 한줄평 첫 로딩 화면 불러오기 */
+   loadComments : function(commentsData) {
+       const joinCount = document.querySelector('.green');
+       const commentCount = commentsData.length;
+       joinCount.innerText = `${commentCount}건`;
+
+       if(commentsData.length === 0) return;
+       
+       let container = document.querySelector('.list_short_review');
+       const showCommentCount = 3;
+       for(let i=0; i<showCommentCount; i++){
+           const resultHTML = this.commentsTemplate(commentsData[i]);
+           container.innerHTML += resultHTML;
+       }
+   },
+
+   commentsTemplate : function(comment){
+       const date = new Date(comment.createDate);
+       let [year, month, day] = [
+           date.getFullYear(),
+           date.getMonth() + 1,
+           date.getDate()
+       ];
+       
+       if(month < 10) month = `0${month}`;
+       if(day < 10) day = `0${day}`;
+
+       comment.score = comment.score.toFixed(1);
+       comment.createDate = `${year}.${month}.${day}. 방문`;
+       
+       const commentTemplate = document.querySelector('#commentTemplate').innerText;
+       const bindTemplate = Handlebars.compile(commentTemplate);
+       return bindTemplate(comment);
    }
-}
+};
