@@ -12,14 +12,42 @@ function init() {
 
 let tap = {
     tabEvent : function() {
+        this.moreTab();
+        this.anchorTab();
+    },
+
+    /* 상세보기, 오시는 길 */
+    anchorTab : function() {
+        let anchorElement = document.querySelectorAll('.anchor');
+        anchorElement.forEach(el => {
+            el.addEventListener('click', this.clickAnchorTab.bind(this, el));
+        });
+    },
+
+    clickAnchorTab : function(element) {
+        element.classList.add('active');
+        if(element.dataset.category === '1'){
+            document.querySelector("[data-category='2']").classList.remove('active');
+            document.querySelector('.detail_area_wrap').classList.remove('hide');
+            document.querySelector('.detail_location').classList.add('hide');
+        }
+        else {
+            document.querySelector("[data-category='1']").classList.remove('active');
+            document.querySelector('.detail_area_wrap').classList.add('hide');
+            document.querySelector('.detail_location').classList.remove('hide');
+        }
+    },
+
+    /* 펼쳐보기, 접기 기능 */
+    moreTab : function() {
         let moreElement = document.querySelectorAll('.bk_more');
         moreElement.forEach(el => {
-            el.addEventListener('click', this.moreTab.bind(this, moreElement));
-        })
+            el.addEventListener('click', this.clickMoreTab.bind(this, moreElement));
+        });
     },
 
     /* 펼쳐보기, 접기 click시 */
-    moreTab : function(element) {
+    clickMoreTab : function(element) {
         document.querySelector('.store_details').classList.toggle('close3');
         element.forEach(el => {
             if(el.style.display === 'none'){
@@ -43,9 +71,26 @@ let product = {
             this.loadComments(data.comments);
             this.loadAvgScore(data.averageScore);
             this.addUrlReviewMore(displayInfoId);
+            this.loadDetail(data.displayInfo, data.displayInfoImage);
         })
    },
 
+   /* 상세설명, 오시는 길 api */
+   loadDetail : function(displayInfo, displayInfoImage) {
+       document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
+       document.querySelector('.store_map').src = displayInfoImage.saveFileName;
+
+       const container = document.querySelector('.box_store_info');
+       resultHTML = this.locationTemplate(displayInfo);
+       container.innerHTML += resultHTML;
+   },
+
+   locationTemplate : function(displayInfo) {
+       const locationTemplate = document.querySelector('#locationTemplate').innerText;
+       const bindTemplate = Handlebars.compile(locationTemplate);
+       return bindTemplate(displayInfo);
+   },
+   
    loadAvgScore : function(avgScore) {
        const score = avgScore.toFixed(1);
        document.querySelector('.text_value').firstElementChild.innerText = score;
@@ -53,7 +98,7 @@ let product = {
        document.querySelector('.graph_value').style.width = `${starScore}%`;
    },
 
-   /* 이미지 불러오기 */
+   /* 이미지 불러오기 및 상세설명 불러오기 */
    loadImage : function(productImagesData, displayInfoData) {
        let container = document.querySelector('.visual_img');
        document.querySelector('.num.off').firstElementChild.innerText = productImagesData.length;
@@ -87,6 +132,7 @@ let product = {
        
        let container = document.querySelector('.list_short_review');
        const showCommentCount = 3;
+
        for(let i=0; i<showCommentCount; i++){
            const resultHTML = this.commentsTemplate(commentsData[i]);
            container.innerHTML += resultHTML;
