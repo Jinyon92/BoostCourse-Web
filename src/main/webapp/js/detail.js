@@ -73,6 +73,7 @@ let product = {
             this.addUrlReviewMore(displayInfoId);
             this.loadDetail(data.displayInfo, data.displayInfoImage);
         })
+        .then(this.slider);
    },
 
    /* 상세설명, 오시는 길 api */
@@ -156,5 +157,26 @@ let product = {
        const commentTemplate = document.querySelector('#commentTemplate').innerText;
        const bindTemplate = Handlebars.compile(commentTemplate);
        return bindTemplate(comment);
+   },
+
+   /* 이미지 버튼 슬라이드 */
+   slider : function() {
+       const ul = document.querySelector('.visual_img');
+       const leftArrow = document.querySelector('.btn_prev');
+       const rigthArrow = document.querySelector('.btn_nxt');
+       const num = document.querySelector('.num');
+       const numRange = document.querySelector('.num.off').firstElementChild.innerText;
+       const firstImgEl = ul.firstElementChild;
+       const secondImgEl = ul.lastElementChild;
+       console.log(firstImgEl);
+       console.log(secondImgEl);
+
+       if(numRange === '1') {
+           leftArrow.style.display = 'none';
+           rigthArrow.style.display = 'none';
+       }
+       else {
+
+       }
    }
 };

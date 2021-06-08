@@ -49,11 +49,12 @@
                         <div>
                             <div class="container_visual" style="width: 414px;">
                                 <ul class="visual_img detail_swipe">
+                                	<!-- 이미지 슬라이드 -->
                                 </ul>
                             </div>
                             <div class="prev">
                                 <div class="prev_inn">
-                                    <a href="#" class="btn_prev" title="이전">
+                                    <a class="btn_prev" title="이전">
                                         <!-- [D] 첫 이미지 이면 off 클래스 추가 -->
                                         <i class="spr_book2 ico_arr6_lt off"></i>
                                     </a>
@@ -61,7 +62,7 @@
                             </div>
                             <div class="nxt">
                                 <div class="nxt_inn">
-                                    <a href="#" class="btn_nxt" title="다음">
+                                    <a class="btn_nxt" title="다음">
                                         <i class="spr_book2 ico_arr6_rt"></i>
                                     </a>
                                 </div>
@@ -179,7 +180,7 @@
 <script src="js/lib/handlebars.min.js"></script>
 <script type="myTemplate" id="imageTemplate">
 	<li class="item" style="width: 414px; height: 414px;"> 
-		<img alt="{{fileName}}" class="img_thumb" src="{{saveFileName}}"> <span class="img_bg"></span>
+		<img alt="{{fileName}}" class="img_thumb" src="{{saveFileName}}" style="height: 414px;"> <span class="img_bg"></span>
     	<div class="visual_txt">
         	<div class="visual_txt_inn">
             	<h2 class="visual_txt_tit"> <span>{{description}}</span> </h2>
