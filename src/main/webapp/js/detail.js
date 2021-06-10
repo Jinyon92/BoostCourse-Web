@@ -161,22 +161,72 @@ let product = {
 
    /* 이미지 버튼 슬라이드 */
    slider : function() {
-       const ul = document.querySelector('.visual_img');
-       const leftArrow = document.querySelector('.btn_prev');
-       const rigthArrow = document.querySelector('.btn_nxt');
+       const slideList = document.querySelector('.visual_img');
+       const slideContents = document.querySelectorAll('.visual_img .item');
+       const slideBtnPrev = document.querySelector('.btn_prev');
+       const slideBtnNext = document.querySelector('.btn_nxt');
        const num = document.querySelector('.num');
-       const numRange = document.querySelector('.num.off').firstElementChild.innerText;
-       const firstImgEl = ul.firstElementChild;
-       const secondImgEl = ul.lastElementChild;
-       console.log(firstImgEl);
-       console.log(secondImgEl);
+       const slideLen = slideContents.length;
+       
+       if(slideLen === '1') { //이미지가 한개인 경우
+            slideBtnPrev.style.display = 'none';
+            slideBtnNext.style.display = 'none';
+            return;
+        }
 
-       if(numRange === '1') {
-           leftArrow.style.display = 'none';
-           rigthArrow.style.display = 'none';
-       }
-       else {
+       const slideWidth = 414;
+       const slideSpeed = 300;
+       const startNum = 0;
+       let firstChild = slideList.firstElementChild;
+       let lastChlid = slideList.lastElementChild;
+       slideList.style.width = slideWidth * (slideLen + 2) + "px"; // 앞 뒤로 이미지 추가
+       
+       //첫번째 이미지, 두번째 이미지 copy
+       let clonedFirst = firstChild.cloneNode(true);
+       let clonedLast = lastChlid.cloneNode(true);
+       slideList.appendChild(clonedFirst);
+       slideList.insertBefore(clonedLast, slideList.firstElementChild);
+       slideList.style.transform = "translate3d(-" + (slideWidth * (startNum + 1)) + "px, 0px, 0px";
 
-       }
+       let curIndex = startNum;
+       let curSlide = slideContents[curIndex];
+       curSlide.classList.add('slide_active');
+
+       slideBtnNext.addEventListener('click', function() {
+           if(curIndex <= slideLen - 1) {
+               slideList.style.transition = slideSpeed + "ms";
+               slideList.style.transform = "translate3d(-" + (slideWidth * (curIndex + 2)) + "px, 0px, 0px";
+           }
+           if(curIndex === slideLen - 1) {
+               setTimeout(() => {
+                   slideList.style.transition = "0ms";
+                   slideList.style.transform = "translate3d(-" + slideWidth + "px, 0px, 0px";
+               }, slideSpeed);
+               curIndex = -1;
+           }
+
+           curSlide.classList.remove('slide_active');
+           curSlide = slideContents[++curIndex];
+           curSlide.classList.add('slide_active');
+       });
+
+       slideBtnPrev.addEventListener('click', function() {
+           if(curIndex >= 0) {
+               slideList.style.transition = slideSpeed + "ms";
+               slideList.style.transform = "translate3d(-" + (slideWidth * curIndex) + "px, 0px, 0px";
+           }
+           if(curIndex === 0){
+               setTimeout(() => {
+                   slideList.style.transition = "0ms";
+                   slideList.style.transform = "translate3d(-" + (slideWidth * slideLen) + "px, 0px, 0px";
+               }, slideSpeed);
+               curIndex = slideLen;
+           }
+
+           curSlide.classList.remove('slide_active');
+           curSlide = slideContents[--curIndex];
+           curSlide.classList.add('slide_active');
+       })
+       
    }
 };
