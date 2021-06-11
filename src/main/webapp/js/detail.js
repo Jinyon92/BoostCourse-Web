@@ -208,6 +208,7 @@ let product = {
            curSlide.classList.remove('slide_active');
            curSlide = slideContents[++curIndex];
            curSlide.classList.add('slide_active');
+           num.innerText = curIndex + 1;
        });
 
        slideBtnPrev.addEventListener('click', function() {
@@ -226,6 +227,7 @@ let product = {
            curSlide.classList.remove('slide_active');
            curSlide = slideContents[--curIndex];
            curSlide.classList.add('slide_active');
+           num.innerText = curIndex+1;
        })
        
    }
