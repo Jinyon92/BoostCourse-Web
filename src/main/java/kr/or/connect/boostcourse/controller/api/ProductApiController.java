@@ -18,6 +18,7 @@ import kr.or.connect.boostcourse.dto.DisplayInfoImage;
 import kr.or.connect.boostcourse.dto.Product;
 import kr.or.connect.boostcourse.dto.ProductImages;
 import kr.or.connect.boostcourse.dto.ProductPrices;
+import kr.or.connect.boostcourse.dto.api.DisplayInfoApiDto;
 import kr.or.connect.boostcourse.service.CategoryService;
 import kr.or.connect.boostcourse.service.CommentService;
 import kr.or.connect.boostcourse.service.ProductService;
@@ -61,25 +62,26 @@ public class ProductApiController {
 		return map;
 	}
 	
-	/* products/{displayInfoId} */
+	/* products/{displayInfoId}*/
 	@GetMapping(value = "/products/{displayInfoId}")
-	public Map<String, Object> productsByDisplayInfoId(@PathVariable("displayInfoId") int displayInfoId){
+	public DisplayInfoApiDto productsByDisplayInfoId(@PathVariable int displayInfoId){
+		DisplayInfoApiDto displayInfoApiDto = new DisplayInfoApiDto();
+		
 		List<ProductPrices> productPrices = productService.getProductPrices(displayInfoId);
 		List<ProductImages> productImages = productService.getProductImages(displayInfoId);
 		DisplayInfo displayInfo = productService.getDisplayInfo(displayInfoId);
 		DisplayInfoImage displayInfoImage = productService.getDisplayInfoImage(displayInfoId);
 		List<Comments> comments = commentService.getComments(displayInfoId);
 		double averageScore = commentService.getAvgScore(displayInfoId);
+
+		displayInfoApiDto.setAverageScore(averageScore);
+		displayInfoApiDto.setComments(comments);
+		displayInfoApiDto.setDisplayInfo(displayInfo);
+		displayInfoApiDto.setDisplayInfoImage(displayInfoImage);
+		displayInfoApiDto.setProductImages(productImages);
+		displayInfoApiDto.setProductPrices(productPrices);
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put("averageScore", averageScore);
-		map.put("comments", comments);
-		map.put("displayInfo", displayInfo);
-		map.put("displayInfoImage", displayInfoImage);
-		map.put("productImages", productImages);
-		map.put("productPrices", productPrices);
-		
-		return map;
+		return displayInfoApiDto;
 	}
 	
 }

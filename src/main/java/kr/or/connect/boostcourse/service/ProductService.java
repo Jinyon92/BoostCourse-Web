@@ -9,7 +9,9 @@ import kr.or.connect.boostcourse.dto.ProductImages;
 import kr.or.connect.boostcourse.dto.ProductPrices;
 
 public interface ProductService {
-	public static final Integer LIMIT = 4;
+	/*public static final Integer LIMIT = 4;
+	interface는 전부 상수로 인*/
+	int LIMIT = 4;
 	List<Product> getProducts(int start);
 	List<Product> getProductsByCategory(int categoryId, int start);
 	List<ProductPrices> getProductPrices(int displayInfoId);
